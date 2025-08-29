@@ -3,16 +3,14 @@ package org.example.schedule3.comment.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.schedule3.BaseEntity;
+import org.example.schedule3.schedule.entity.Schedule;
+import org.example.schedule3.user.entity.User;
 
 @Entity
-// 엔티티 클래스임을 나타낸다.
-// 이 클래스는 데이터베이스의 테이블과 매핑된다.
-// DB에 저장, 조회, 수정, 삭제할 수 있는 대상이 된다.
 @Getter
-// 클래스의 모든 필드에 대해 Getter 메서드를 자동으로 생성해준다.
 @NoArgsConstructor
-// 인자가 없는 기본 생성자를 만들어 준다.
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Id : 해당 필드를 엔티티의 기본 키(PK)로 지정한다.
@@ -21,10 +19,20 @@ public class Comment {
     //                   개발자가 id 값을 따로 지정하지 않아도 DB가 자동으로 1씩 증가된 값을 넣어준다.
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)  // FK 매핑 (N:1) 여러개의 댓글을 한명의 유저가 쓸 수 있다
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne // FK 매핑 (N:1) 여러개의 댓글을 하나의 일정에 쓸 수 있다.
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private Schedule schedule;
+
     @Column(nullable = false, length = 100)
     private String contents;
 
-    public Comment(String contents) {
+    public Comment(User user, Schedule schedule, String contents) {
+        this.user = user;
+        this.schedule = schedule;
         this.contents = contents;
     }
 }
