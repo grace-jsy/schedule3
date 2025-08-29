@@ -16,6 +16,7 @@ public class Schedule extends BaseEntity {
 
     // FK 매핑 (N:1) 여러개의 스케줄을 한명의 유저가 쓸 수 있다.
     // username 또한 User 엔티티에서 가져오기 때문에 쓰지 않는다.
+    // 연관된 객체를 사용할 때까지 로딩을 미룬다.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
