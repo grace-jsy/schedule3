@@ -10,6 +10,7 @@ import org.example.schedule3.user.entity.User;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "comments")
 public class Comment extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne // FK 매핑 (N:1) 여러개의 댓글을 하나의 일정에 쓸 수 있다.
+    @ManyToOne(fetch = FetchType.LAZY)// FK 매핑 (N:1) 여러개의 댓글을 하나의 일정에 쓸 수 있다.
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
 

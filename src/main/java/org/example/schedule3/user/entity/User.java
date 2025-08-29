@@ -9,7 +9,9 @@ import org.example.schedule3.BaseEntity;
 @Getter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "users")
+// 테이블의 이름은 users
+// 이걸 쓰지 않으면 클래스 이름으로 만들어진다.
 public class User extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

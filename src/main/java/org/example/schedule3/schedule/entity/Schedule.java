@@ -9,6 +9,7 @@ import org.example.schedule3.user.entity.User;
 @Getter
 @Entity
 @NoArgsConstructor
+@Table(name = "schedules")
 public class Schedule extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
